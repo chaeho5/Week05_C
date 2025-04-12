@@ -46,30 +46,30 @@ int main()
 	ll.head = NULL;
 	ll.size = 0;
 
-	printf("1: Insert an integer to the sorted linked list:\n");
-	printf("2: Print the index of the most recent input value:\n");
-	printf("3: Print sorted linked list:\n");
+	printf("1: 정렬된 링크 목록에 정수 삽입:\n");
+	printf("2: 가장 최근 입력 값의 인덱스를 인쇄합니다:\n");
+	printf("3: 정렬된 링크 목록 인쇄:\n");
 	printf("0: Quit:");
 
 	while (c != 0)
 	{
-		printf("\nPlease input your choice(1/2/3/0): ");
-		scanf("%d", &c);
+		printf("\n선택하신 내용을 입력해 주세요 (1/2/3/0): ");
+		scanf("%d", &c); //%d는 decimal. 즉, 10진수를 의미함
 
-		switch (c)
+		switch (c) //단순한 반복문?, if문 단순 버전?
 		{
 		case 1:
-			printf("Input an integer that you want to add to the linked list: ");
+			printf("연결된 목록에 추가할 정수를 입력합니다:");
 			scanf("%d", &i);
 			j = insertSortedLL(&ll, i);
-			printf("The resulting linked list is: ");
+			printf("결과적으로 연결된 목록은 다음과 같습니다: ");
 			printList(&ll);
 			break;
 		case 2:
-			printf("The value %d was added at index %d\n", i, j);
+			printf("인덱스 %d에 %d 값이 추가되었습니다\n", i, j);
 			break;
 		case 3:
-			printf("The resulting sorted linked list is: ");
+			printf("결과적으로 정렬된 연결 목록은 다음과 같습니다:");
 			printList(&ll);
 			removeAllItems(&ll);
 			break;
@@ -77,7 +77,7 @@ int main()
 			removeAllItems(&ll);
 			break;
 		default:
-			printf("Choice unknown;\n");
+			printf("선택 알 수 없음;\n");
 			break;
 		}
 
@@ -90,8 +90,24 @@ int main()
 
 int insertSortedLL(LinkedList *ll, int item)
 {
-	printf("fucing c");
-	return 0;
+	int index = 0;
+    ListNode *current = ll->head;
+
+    // 올바른 삽입 위치를 찾으면서 중복 여부도 확인
+    while (current != NULL && current->item < item) {
+        index++;
+        current = current->next;
+    }  
+
+    // 현재 노드가 존재하고 그 값이 새 item과 같으면 중복이므로 삽입하지 않음
+    if (current != NULL && current->item == item)
+        return -1;
+
+    // 찾은 인덱스 위치에 새 노드를 삽입
+    if (insertNode(ll, index, item) == -1)
+        return -1;
+
+    return index;
 	/* add your code here */
 }
 
