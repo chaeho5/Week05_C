@@ -86,6 +86,41 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
+	if (ll == NULL || ll->head == NULL) return;
+
+	ListNode* cur = ll->head;  // 현재 노드
+    ListNode* prev = NULL;     // 이전 노드
+    ListNode* tail = ll->head; // 리스트의 끝을 가리키는 포인터
+
+    // 리스트의 끝을 찾음
+    while (tail->next != NULL) {
+        tail = tail->next;
+    }
+
+    ListNode* originalTail = tail; // 원래의 끝을 저장 (무한 루프 방지)
+
+    while (cur != NULL && cur != originalTail->next) {
+        if (cur->item % 2 != 0) { // 홀수인 경우
+            if (cur == ll->head) { // 현재 노드가 head인 경우
+                ll->head = cur->next; // head를 다음 노드로 이동
+            } else {
+                prev->next = cur->next; // 이전 노드가 현재 노드 건너뛰도록 설정
+            }
+
+            // 현재 노드를 리스트의 끝으로 이동
+            tail->next = cur;
+            cur->next = NULL;
+            tail = cur; // tail 업데이트
+
+
+            // 다음 노드로 이동
+            cur = (prev == NULL) ? ll->head : prev->next;
+        } else { // 짝수인 경우
+            prev = cur;
+            cur = cur->next;
+        }
+    }
+	
 	/* add your code here */
 }
 

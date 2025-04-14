@@ -102,9 +102,25 @@ int main()
 
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	/* add your code here */
-}
+	if (ll == NULL || resultFrontList == NULL || resultBackList == NULL) return;
 
+    ListNode* cur = ll->head;  // 현재 노드
+    int mid = (ll->size + 1) / 2;  // 앞쪽 리스트의 크기 계산
+    int count = 0;
+
+    // 앞쪽 리스트에 노드 추가
+    while (count < mid && cur != NULL) {
+        insertNode(resultFrontList, resultFrontList->size, cur->item);
+        cur = cur->next;
+        count++; // mid의 값을 넘지 않기 위함.
+    }
+
+    // 뒤쪽 리스트에 노드 추가
+    while (cur != NULL) {
+        insertNode(resultBackList, resultBackList->size, cur->item);
+        cur = cur->next;
+    }
+}
 ///////////////////////////////////////////////////////////////////////////////////
 
 void printList(LinkedList *ll){

@@ -87,6 +87,23 @@ int main()
 
 void RecursiveReverse(ListNode **ptrHead)
 {
+	// 기저 조건: 리스트가 비어 있거나 노드가 하나만 있는 경우
+    if (*ptrHead == NULL || (*ptrHead)->next == NULL) {
+        return;
+    }
+
+    // 나머지 리스트를 재귀적으로 뒤집음
+    ListNode *rest = (*ptrHead)->next;// 현재 헤드 노드의 다음을 rest로 저장, 첫번째 호출한 노드의 다음이 기준이 됨
+    RecursiveReverse(&rest); //바로 위에 코드로 바뀐 기준으로 아래 짜놓은 코드 실행
+	//재귀 호출은 기저 조건을 만나면 return(반환)되기 시작함. 마지막 호출에서 기저 조건이 만족되므로 마지막부터 반환 시작
+	//재귀 호출은 스택 구조로 작동
+
+    // 현재 노드의 다음 노드가 현재 노드를 가리키도록 설정
+    (*ptrHead)->next->next = *ptrHead;//(*ptrHead)->next는 rest로 볼 수 있음. 즉, rest->next = 
+    (*ptrHead)->next = NULL;
+
+    // 새로운 헤드를 설정
+    *ptrHead = rest; //*ptrHead를 rest가 뒤집힌 리스트의 새로운 헤드를 가리키고, 업데이트 함.
 	/* add your code here */
 }
 
