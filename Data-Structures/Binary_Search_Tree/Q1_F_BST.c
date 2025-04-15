@@ -91,9 +91,27 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void levelOrderTraversal(BSTNode* root)
+void levelOrderTraversal(BSTNode* root)//레벨 순서 순회 BFS(너비우선탐색), 큐 사용
 {
+	if (root == NULL) {
+		return;
+	}
 
+	QueueNode *head = NULL, *tail = NULL;
+	enqueue(&head, &tail, root);
+
+	while(!isEmpty(head)) {
+		BSTNode *current = dequeue(&head, &tail);
+		printf("%d", current->item);
+
+		if (current->left != NULL){
+			enqueue(&head, &tail, current->left);
+		}
+
+		if (current->right != NULL){
+			enqueue(&head, &tail, current->right);
+		}
+	}
     /* add your code here */
 }
 

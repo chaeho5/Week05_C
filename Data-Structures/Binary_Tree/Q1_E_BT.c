@@ -116,6 +116,23 @@ int main()
 int identical(BTNode *tree1, BTNode *tree2)
 
 {
+    //둘다 null
+    if (tree1 == NULL && tree2 == NULL) {
+        return 1;
+    }
+    //둘중에 하나만 null
+    if (tree1 == NULL || tree2 == NULL) {
+        return 0;
+    }
+    //둘이 값이 같을 때
+    if (tree1->item == tree2->item){
+        if(identical(tree1->left, tree2->left)){
+            if(identical(tree1->right, tree2->right)){
+                return 1;
+            }
+        }
+    }
+    return 0;
    /* add your code here */
 }
 
