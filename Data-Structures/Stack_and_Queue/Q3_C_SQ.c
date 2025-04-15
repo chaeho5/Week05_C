@@ -10,7 +10,7 @@ Purpose: Implementing the required functions for Question 3 */
 #include <stdlib.h>
 #include <limits.h>
 
-//////////////////////////////////   linked list /////////////////////////////////
+////////////////////////////////// linked list /////////////////////////////////
 
 typedef struct _listnode{
    int item;
@@ -103,6 +103,35 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
+    // 스택이 비어있다면 모든 숫자가 올바른 짝을 이루므로 참으로 간주
+    if(isEmptyStack(s));
+	return 1;
+
+    // 첫 번째 숫자 꺼내기
+    int first = pop(s);
+
+    // 만약 스택이 여기서 비어있다면 짝을 이룰 두 번째 숫자가 없다는 뜻(홀수개)으로 첫 번째로 팝 했던 값을 다시 푸쉬해서 복원원
+    if (isEmptyStack(s)){
+		push(s, first);
+		return 0;
+	}
+    
+    // 두 번째 숫자 꺼내기
+    int second = pop(s);
+
+    // 첫 번째 숫자와 두 번째 숫자의 차이가 1인지 검사
+    int pairCheck = ((first - second == 1)||(second - first == 1));
+
+    // 남은 스택에 대해 재귀 호출로 검사
+    int restCheck = isStackPairwiseConsecutive(s);
+
+    // 원래의 순서를 복원 (먼저 두 번째, 그 다음 첫 번째를 푸시하면 원래의 순서 유지)
+    push(s, second);
+    push(s, first);
+
+    // 현재 짝과 나머지 결과가 모두 참이면 전체 스택이 pairwise consecutive임
+    return pairCheck && restCheck;
+
   /* add your code here */
 }
 

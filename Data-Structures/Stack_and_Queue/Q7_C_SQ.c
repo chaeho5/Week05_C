@@ -85,9 +85,9 @@ int main()
 			break;
         case 2:
             if(balanced(str))
-                printf("not balanced!\n");
-            else
                 printf("balanced!\n");
+            else
+                printf("not balanced!\n");
 			break;
 		case 0:
 			break;
@@ -104,6 +104,46 @@ int main()
 ////////////////////////////////////////////////////////////
 int balanced(char *expression)
 {
+	Stack s;
+	s.ll.size = 0;
+	s.ll.head = NULL;
+
+	char ch;//현재 처리 중인 문자를 저장할 변수, 여는 괄호인지 닫는 괄호인지 판단할 것
+	int i = 0;//문자열의 인덱스
+
+	while (expression[i] != '\0') {// \0은 널 종료 문자, C언어에서 문자열의 끝을 나타내는 특별한 문자.
+		//while 조건은 문자열 끝까지 도달 할 때까지 반복문 
+
+        ch = expression[i];
+
+        // 여는 괄호는 스택에 푸시
+        if (ch == '(' || ch == '[' || ch == '{') {
+            push(&s, ch);
+        }
+        // 닫는 괄호는 스택에서 팝하여 짝이 맞는지 확인
+        else if (ch == ')' || ch == ']' || ch == '}') {
+            if (isEmptyStack(&s)) {
+                // 스택이 비어 있으면 닫는 괄호에 대응하는 여는 괄호가 없음
+                return 0; // 균형이 맞지 않음
+            }
+
+            char top = pop(&s);//스택에서 최상단 값을 가져옴
+
+            // 짝이 맞는지 확인
+            if ((ch == ')' && top != '(') ||
+                (ch == ']' && top != '[') ||
+                (ch == '}' && top != '{')) {
+                return 0; // 균형이 맞지 않음
+            }
+			//위에 조건이 만족되지 않으면 짝이 맞다는 뜻이므로 아무 작업도 하지 않음.
+			//이 경우, 다음 문자를 처리하기 위해 반복문이 계속 실행 됨.
+        }
+
+        i++; 다음 문자로 이동
+    }
+
+    // 문자열 순회가 끝난 후 스택이 비어 있어야 균형이 맞음
+    return isEmptyStack(&s);
 /* add your code here */
 }
 

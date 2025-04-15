@@ -116,11 +116,26 @@ int main()
 
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
+	ListNode* current = ll->head;
+	//링크드리스트 구조체 안에 있는 리스트노드의 헤드를 가리키는 것을 current포인터에 저장해서 처음부터 순회하게 만듬 
+
+	while(current != NULL) { //current가 NULL이 될 때까지 반복
+		enqueue(q, current->item); //큐에 현재 노드의 값을 삽입, q는 Queue를 나타내는 구조체
+		current = current->next; //다음 노드로 이동
+	}
 	/* add your code here */
 }
 
 void removeOddValues(Queue *q)
 {
+	int size = q->ll.size; // 큐의 현재 크기 저장
+	for (int i = 0; i < size; i++){
+		int value = dequeue(q); //큐에서 값을 제거
+
+		if (value % 2 == 0){ //짝수인 경우
+			enqueue(q, value); //큐에 다시 삽입
+		}
+	}
 	/* add your code here */
 }
 

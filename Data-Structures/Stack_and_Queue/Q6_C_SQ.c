@@ -111,6 +111,10 @@ int main()
 
 void removeUntil(Stack *s, int value)
 {
+	while(!isEmptyStack(s) && peek(s) < value){
+		pop(s);
+	}
+		
 /* add your code here */
 }
 
@@ -161,9 +165,10 @@ int pop(Stack *s)
 		return MIN_INT;
 }
 
-int peek(Stack *s){
+int peek(Stack *s){//스택에 최상단 값
     if(isEmptyStack(s))
-        return MIN_INT;
+        return MIN_INT;//코드 상단에 보면 -1000으로 지정 되어 있음,
+		//스택에서 유효한 데이터 값으로 사용되지 않는다고 가정 =
     else
         return ((s->ll).head)->item;
 }
