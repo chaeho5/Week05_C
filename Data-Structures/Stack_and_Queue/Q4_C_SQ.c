@@ -114,17 +114,19 @@ void reverse(Queue *q)
 {
 	//스택 만들고 초기화
 	Stack s;
+	//Stack *s = malloc(sizeof(Stack));
 	s.ll.head = NULL;
 	s.ll.size = 0;
 
-	while(!isEmptyQueue(q)){//큐가 비어있지 않은 동안안
+	while(!isEmptyQueue(q)){//큐가 비어있지 않은 동안
 		push(&s, dequeue(q));//call by reference
 	}
 
 	while(!isEmptyStack(&s)){
 		enqueue(q, pop(&s));
 	}
-//스택과 큐 같은 데이터 구조를 수정하려면 반드시 Call by Reference를 사용해야 함.	
+//스택과 큐 같은 데이터 구조를 수정하려면 반드시 Call by Reference를 사용해야 함.
+
 /* add your code here */
 }
 
