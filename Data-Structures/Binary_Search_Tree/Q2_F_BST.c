@@ -90,6 +90,25 @@ int main()
 
 void inOrderTraversal(BSTNode *root)
 {
+	Stack s;
+	s.top = NULL; // 스택 초기화
+	
+	BSTNode *current = root;
+	
+		while (!isEmpty(&s) || current != NULL) {
+			// Step 1: 왼쪽 서브트리 탐색
+			while (current != NULL) {
+				push(&s, current); // 현재 노드를 스택에 푸시
+				current = current->left; // 왼쪽 자식으로 이동
+			}
+	
+			// Step 2: 노드 방문
+			current = pop(&s); // 스택에서 노드를 팝
+			printf("%d ", current->item); // 노드 출력
+	
+			// Step 3: 오른쪽 서브트리 탐색
+			current = current->right; // 오른쪽 자식으로 이동
+		}
 	 /* add your code here */
 }
 
